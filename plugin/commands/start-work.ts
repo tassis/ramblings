@@ -1,8 +1,10 @@
+import { schedulerReminder } from "../reminders"
+
 export const startWork = {
   description: "Start or resume execution from the active unfinished plan",
   template: `Use ramblings-implementing-plans. Enter execution mode for the current project's root .ramblings/ artifacts.
 
-<internal_reminder>!IMPORTANT! Scheduler workflow: plan lanes/dependencies → dispatch background specialists → track task IDs → wait for hook-driven completion → reconcile terminal results → verify. Do not poll running jobs, consume running-job output, or advance dependent work. If a lane's terminal result is already reconciled and verified but the Background Board still shows it as running, treat that as stale-running board residue rather than active execution. Only then may you cancel it as obsolete cleanup; this is lifecycle cleanup, not rollback. Do not cancel when output is partial, terminal status is unclear, reconciliation is incomplete, verification still depends on the lane, or the same session must continue. !END!</internal_reminder>
+${schedulerReminder}
 
 Treat this as /start-work semantics:
 - start or resume; do not assume this always starts from scratch

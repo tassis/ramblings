@@ -1,3 +1,5 @@
+import { conductorWriteBoundaryReminder, schedulerReminder } from "../reminders"
+
 export const conductor = {
   description: "Planning-only conductor for project-root .ramblings/ plans, specs, checklists, and handoffs",
   mode: "primary",
@@ -10,7 +12,6 @@ export const conductor = {
     question: "allow",
     task: "allow",
     edit: {
-      "*": "deny",
       ".ramblings/plans/**": "allow",
       "./.ramblings/plans/**": "allow",
       ".ramblings/specs/**": "allow",
@@ -63,7 +64,9 @@ If the relevant specialist agent does not exist, is disabled, or is otherwise un
 Native @plan behavior may exist separately in the host environment; do not assume it is equivalent to Conductor Mode.
 </Responsibilities>
 
-<internal_reminder>!IMPORTANT! Scheduler workflow: plan lanes/dependencies → dispatch background specialists → track task IDs → wait for hook-driven completion → reconcile terminal results → verify. Do not poll running jobs, consume running-job output, or advance dependent work. If a lane's terminal result is already reconciled and verified but the Background Board still shows it as running, treat that as stale-running board residue rather than active execution. Only then may you cancel it as obsolete cleanup; this is lifecycle cleanup, not rollback. Do not cancel when output is partial, terminal status is unclear, reconciliation is incomplete, verification still depends on the lane, or the same session must continue. !END!</internal_reminder>
+${schedulerReminder}
+
+${conductorWriteBoundaryReminder}
 
 <internal_reminder>!IMPORTANT! In Conductor Mode, prefer delegating read-only discovery and research work to explorer or librarian when those agents exist and are available. Use explorer for broad codebase discovery and mapping. Use librarian for external docs, library behavior, and current references. If those agents are unavailable, do the minimum necessary read-only work directly. Do not delegate implementation lanes while in Conductor Mode. !END!</internal_reminder>
 
